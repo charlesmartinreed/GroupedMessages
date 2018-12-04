@@ -13,6 +13,8 @@ class ChatMessageCell: UITableViewCell {
     //MARK:- Cell Properties
     let messageLabel = UILabel() //represents a text message, add to cell to make visible
     let bubbleBackgroundView = UIView()
+    var leadingConstraint: NSLayoutConstraint!
+    var trailingConstraint: NSLayoutConstraint!
     
     var chatMessage: ChatMessage! {
         didSet {
@@ -20,6 +22,15 @@ class ChatMessageCell: UITableViewCell {
             messageLabel.textColor = chatMessage.isIncoming ? .black : .white
             
             messageLabel.text = chatMessage.contents
+            
+            //incoming messages on the left, outgoing on the right
+            if chatMessage.isIncoming {
+                leadingConstraint.isActive = true
+                trailingConstraint.isActive = false
+            } else {
+                leadingConstraint.isActive = false
+                trailingConstraint.isActive = true
+            }
         }
     }
     
@@ -53,11 +64,9 @@ class ChatMessageCell: UITableViewCell {
         let constraints =
             [
             messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
             messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
-        //MARK:- autolayout constraints for our background view
-        //after adding subview of messageLabel because they are derived from messageLabel
+        
             bubbleBackgroundView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -16),
             bubbleBackgroundView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -16),
             bubbleBackgroundView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 16),
@@ -65,7 +74,16 @@ class ChatMessageCell: UITableViewCell {
         ]
         
         NSLayoutConstraint.activate(constraints)
+        
+        //activate these constraints manually, so we can change bool value according to whether or not the message is incoming or outgoing and layout accordingly
+        leadingConstraint = messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24)
+        leadingConstraint.isActive = false
+        
+        trailingConstraint = messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
+        trailingConstraint.isActive = true
     }
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

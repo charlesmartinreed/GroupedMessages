@@ -22,7 +22,9 @@ class ViewController: UITableViewController {
         ChatMessage(contents: "Here's my very first message", isIncoming: false),
         ChatMessage(contents: "I'm going to message another long message that should word wrap. Pretty sure lorem ipusum would've been a good implementation for this tutorial, but maybe that's no cool anymore? Here's my very first message I'm going to message another long message that should word wrap. Pretty sure lorem ipusum would've been a good implementation for this tutorial, but maybe that's no cool anymore?", isIncoming: true),
         ChatMessage(contents: "One last message for the road. Thanks for that!", isIncoming: true),
-        ChatMessage(contents: "Get at me, dawg!", isIncoming: false)
+        ChatMessage(contents: "Get at me, dawg!", isIncoming: false),
+        ChatMessage(contents: "This message is on the left, in white", isIncoming: true),
+        ChatMessage(contents: "This message is on the right, in black", isIncoming: false)
     ]
     
     override func viewDidLoad() {
