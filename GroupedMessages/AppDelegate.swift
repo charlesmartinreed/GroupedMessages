@@ -19,8 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //bypass storyboard by creating our own window
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ViewController())
-        
+        window?.rootViewController = UINavigationController(rootViewController: ChatTableViewController())
         
         return true
     }
